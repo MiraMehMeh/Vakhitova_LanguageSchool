@@ -1,0 +1,28 @@
+﻿<Window x:Class="Vakhitova_LanguageSchool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Vakhitova_LanguageSchool"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" FontFamily="Comic Sans MS" Icon="/pics/school_logo.ico"
+        MinHeight="800" MinWidth="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Row="0" Background="#FFE7FABF"></Frame>
+        
+        <Image Source="/pics/school_logo.png" HorizontalAlignment="Left"/>
+
+        <TextBlock Text="Языковая школа Лангуаге" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+
+        <Frame Name="MainFrame" Grid.Row="1" ContentRendered="MainFrame_ContentRendered" NavigationUIVisibility="Hidden"></Frame>
+
+        <Button Content="Назад" Name="BtnBack" Click="BtnBack_Click" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
+        
+    </Grid>
+</Window>
