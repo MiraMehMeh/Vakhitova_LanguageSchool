@@ -37,6 +37,11 @@ namespace Vakhitova_LanguageSchool
 
             PageListCB.SelectedIndex = 0;
 
+            FiltCB.SelectedIndex = 0;
+            SortCB.SelectedIndex = 0;
+
+            UpdateClients();
+
             currentPage = 1;
             ChangePage();
         }
@@ -73,6 +78,63 @@ namespace Vakhitova_LanguageSchool
 
             TBCount.Text = clientsPage.Count.ToString();
             TBAllRecords.Text = " из " + _filteredClients.Count.ToString();
+        }
+
+        private void UpdateClients()
+        {
+            var allClients = Vakhitova_LanguageSchoolEntities.GetContext().Client
+                .Include(c => c.ClientService).ToList();
+
+
+            // фильтрация
+            if (FiltCB.SelectedIndex == 1)
+                allClients = allClients.Where(c => c.GenderCode == "м").ToList();
+
+            if (FiltCB.SelectedIndex == 2)
+                allClients = allClients.Where(c => c.GenderCode == "ж").ToList();
+
+            // поиск
+            string cleanedSearchText = SearchTB.Text.ToLower();
+            string cleanedPhone = cleanedSearchText
+                .Replace("+", "")
+                .Replace("(", "")
+                .Replace(")", "")
+                .Replace("-", "")
+                .Replace(" ", "")
+                .Replace("8", "7");
+
+            allClients = allClients.Where(c =>
+                (c.LastName.ToLower().Contains(cleanedSearchText)) ||
+                (c.FirstName.ToLower().Contains(cleanedSearchText)) ||
+                (c.Patronymic.ToLower().Contains(cleanedSearchText)) ||
+
+                (c.Email.ToLower().Contains(cleanedSearchText)) ||
+
+                (c.Phone
+                    .Replace("+", "")
+                    .Replace("(", "")
+                    .Replace(")", "")
+                    .Replace("-", "")
+                    .Replace(" ", "")
+                    .Replace("8", "7")
+                    .StartsWith(cleanedPhone)))
+                .ToList();
+
+            // сортировка
+            if (SortCB.SelectedIndex == 1)
+                allClients = allClients.OrderBy(c => c.LastName).ToList();
+
+            if (SortCB.SelectedIndex == 2)
+                allClients = allClients
+                    .OrderByDescending(c => c.ClientService.Any() ? (DateTime?)c.ClientService.Max(cs => cs.StartTime) : null)
+                        .ToList();
+
+            if (SortCB.SelectedIndex == 3)
+                allClients = allClients.OrderByDescending(c => c.VisitsCount).ToList();
+
+            _filteredClients = allClients;
+            currentPage = 1;
+            ChangePage();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -194,6 +256,21 @@ namespace Vakhitova_LanguageSchool
             {
                 DeleteBtn.Visibility = Visibility.Hidden;
             }
+        }
+
+        private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateClients();
+        }
+
+        private void FiltCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateClients();
+        }
+
+        private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateClients();
         }
     }
 }

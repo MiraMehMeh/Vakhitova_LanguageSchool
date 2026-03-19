@@ -15,6 +15,26 @@
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <TextBlock Text="Поиск: " FontSize="20" VerticalAlignment="Center"></TextBlock>
+            <TextBox Name="SearchTB" Height="30" Width="300" FontSize="15" TextChanged="SearchTB_TextChanged"></TextBox>
+
+            <TextBlock Text="Пол: " FontSize="20" VerticalAlignment="Center"></TextBlock>
+            <ComboBox Name="FiltCB" Height="30" Width="100" SelectionChanged="FiltCB_SelectionChanged">
+                <TextBlock>Все</TextBlock>
+                <TextBlock>мужской</TextBlock>
+                <TextBlock>женский</TextBlock>
+            </ComboBox>
+
+            <TextBlock Text="Сортировка: " FontSize="20" VerticalAlignment="Center"></TextBlock>
+            <ComboBox Name="SortCB" Height="30" Width="300" SelectionChanged="SortCB_SelectionChanged">
+                <TextBlock>Все</TextBlock>
+                <TextBlock>по фамилии от А до Я</TextBlock>
+                <TextBlock>по дате посещения (от новых к старым)</TextBlock>
+                <TextBlock>по количеству посещений (от большего к меньшему)</TextBlock>
+            </ComboBox>
+        </StackPanel>
+        
         <ListView Name="ClientsListView" Grid.Row="1" SelectionChanged="ClientsListView_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
