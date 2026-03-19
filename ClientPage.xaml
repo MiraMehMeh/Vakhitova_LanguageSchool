@@ -9,13 +9,19 @@
       Title="ClientPage" FontFamily="Comic Sans MS">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
 
-        <ListView Name="ClientsListView">
+        <ListView Name="ClientsListView" Grid.Row="1" SelectionChanged="ClientsListView_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="550"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
@@ -86,17 +92,52 @@
 
                         <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal">
                             <TextBlock Text="Дата последнего посещения: " FontSize="20"></TextBlock>
-                            
+
+                            <TextBlock Text="{Binding LastVisitDate}" FontSize="20"></TextBlock>
                         </StackPanel>
 
 
                         <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal">
                             <TextBlock Text="Количество посещений: " FontSize="20"></TextBlock>
-                            
+
+                            <TextBlock Text="{Binding VisitsCount}" FontSize="20"></TextBlock>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <Button Content="Удалить" Name="DeleteBtn" Grid.Row="2"  HorizontalAlignment="Left" VerticalAlignment="Center"
+             Click="DeleteBtn_Click" Width="100" Visibility="Hidden"></Button>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Name="TBCount" FontSize="20"></TextBlock>
+
+            <TextBlock Name="TBAllRecords" FontSize="20"></TextBlock>
+
+            <TextBlock Text="      Выводить по " FontSize="20"></TextBlock>
+
+            <ComboBox Name="PageListCB" Height="30" Width="70" SelectionChanged="PageListCB_SelectionChanged">
+                <TextBlock>10</TextBlock>
+                <TextBlock>50</TextBlock>
+                <TextBlock>200</TextBlock>
+                <TextBlock>Все</TextBlock>
+            </ComboBox>
+            
+            <Button Name="LeftDirButton" Content="&lt;" Width="30" Height="30"
+                    Click="LeftDirButton_Click"></Button>
+
+            <ListBox FontSize="20" Name="PageListBox" MouseUp="PageListBox_MouseUp">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+
+            <Button Name="RightDirButton" Content="&gt;" Width="30" Height="30"
+                    Click="RightDirButton_Click"></Button>
+        </StackPanel>
+        
      </Grid>
 </Page>

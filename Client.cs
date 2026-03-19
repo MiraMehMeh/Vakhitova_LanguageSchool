@@ -11,7 +11,8 @@ namespace Vakhitova_LanguageSchool
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -55,6 +56,25 @@ namespace Vakhitova_LanguageSchool
                 return RegistrationDate.ToShortDateString();
             }
         }
+
+        public string LastVisitDate
+        {
+            get
+            {
+                var LastVisit = ClientService.Where(p => p.ClientID == this.ID).OrderByDescending(p => p.StartTime).FirstOrDefault();
+
+                if (LastVisit == null)
+                    return "нет";
+
+                else
+                {
+                    DateTime startTime = LastVisit.StartTime;
+                    return startTime.ToString("d");
+                }
+            }
+        }
+
+        public int VisitsCount => ClientService?.Count ?? 0;
 
         public virtual Gender Gender { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
