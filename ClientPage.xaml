@@ -6,8 +6,13 @@
       xmlns:local="clr-namespace:Vakhitova_LanguageSchool"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ClientPage" FontFamily="Comic Sans MS">
+      Title="ClientPage" FontFamily="Comic Sans MS"
+      IsVisibleChanged="Page_IsVisibleChanged">
 
+    <Page.Resources>
+        <local:ImagePathConverter x:Key="ImagePathConverter"/>
+    </Page.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"></RowDefinition>
@@ -33,6 +38,8 @@
                 <TextBlock>по дате посещения (от новых к старым)</TextBlock>
                 <TextBlock>по количеству посещений (от большего к меньшему)</TextBlock>
             </ComboBox>
+
+            <Button Content="Добавить" Name="AddBtn" Click="AddBtn_Click"></Button>
         </StackPanel>
         
         <ListView Name="ClientsListView" Grid.Row="1" SelectionChanged="ClientsListView_SelectionChanged">
@@ -56,12 +63,8 @@
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <Image Grid.Column="0" Grid.RowSpan="8" Width="200" Stretch="UniformToFill" HorizontalAlignment="Left">
-                            <Image.Source>
-                                <Binding Path="PhotoPath">
-                                </Binding>
-                            </Image.Source>
-                        </Image>
+                        <Image Grid.Column="0" Grid.RowSpan="8" Width="200" Stretch="UniformToFill" HorizontalAlignment="Left"
+                            Source="{Binding PhotoPath, Converter={StaticResource ImagePathConverter}}"/>
 
                         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
                             <TextBlock Text="{Binding ID}" FontSize="20"></TextBlock>
@@ -127,8 +130,13 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button Content="Удалить" Name="DeleteBtn" Grid.Row="2"  HorizontalAlignment="Left" VerticalAlignment="Center"
-             Click="DeleteBtn_Click" Width="100" Visibility="Hidden"></Button>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button Content="Удалить" Name="DeleteBtn" Grid.Row="2"  HorizontalAlignment="Left" VerticalAlignment="Center"
+                Click="DeleteBtn_Click" Width="100" Visibility="Hidden"></Button>
+
+            <Button Content="Редактировать" Name="EditBtn" Click="EditBtn_Click" Width="150" Visibility="Hidden"></Button>
+        </StackPanel>
+        
         
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <TextBlock Name="TBCount" FontSize="20"></TextBlock>

@@ -137,11 +137,6 @@ namespace Vakhitova_LanguageSchool
             ChangePage();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new AddEditPage());
-        }
-
         private void LeftDirButton_Click(object sender, RoutedEventArgs e)
         {
             if (_filteredClients == null) 
@@ -247,15 +242,9 @@ namespace Vakhitova_LanguageSchool
 
         private void ClientsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ClientsListView.SelectedItems.Count > 0)
-            {
-                DeleteBtn.Visibility = Visibility.Visible;
-            }
-
-            else
-            {
-                DeleteBtn.Visibility = Visibility.Hidden;
-            }
+            bool hasSelection = ClientsListView.SelectedItems.Count > 0;
+            EditBtn.Visibility = hasSelection ? Visibility.Visible : Visibility.Hidden;
+            DeleteBtn.Visibility = hasSelection ? Visibility.Visible : Visibility.Hidden;
         }
 
         private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
@@ -271,6 +260,27 @@ namespace Vakhitova_LanguageSchool
         private void SortCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateClients();
+        }
+
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.IsVisible)
+            {
+                UpdateClients();
+            }
+        }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new AddEditPage(null));
+        }
+
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClientsListView.SelectedItem is Client selected)
+            {
+                Manager.MainFrame.Navigate(new AddEditPage(selected));
+            }
         }
     }
 }

@@ -9,6 +9,61 @@
       Title="AddEditPage" FontFamily="Comic Sans MS">
 
     <Grid>
-        <TextBlock Text="ghdbtn" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="ID" Name="IDLabel" FontSize="20" Grid.Column="0" Grid.Row="0"></TextBlock>
+        <TextBox Name="IDTB" FontSize="20" Grid.Column="1" Grid.Row="0" Height="50"
+                 IsReadOnly="True"></TextBox>
+        
+        <TextBlock Text="Фамилия" FontSize="20" Grid.Column="0" Grid.Row="1"></TextBlock>
+        <TextBox Name="LastNameTB" FontSize="20" Grid.Column="1" Grid.Row="1" Height="50"
+                 MaxLength="50"></TextBox>
+        
+        <TextBlock Text="Имя" FontSize="20" Grid.Column="0" Grid.Row="2"></TextBlock>
+        <TextBox Name="FirstNameTB" FontSize="20" Grid.Column="1" Grid.Row="2" Height="50"
+                 MaxLength="50"></TextBox>
+        
+        <TextBlock Text="Отчество" FontSize="20" Grid.Column="0" Grid.Row="3"></TextBlock>
+        <TextBox Name="PatronymicTB" FontSize="20" Grid.Column="1" Grid.Row="3" Height="50"
+                 MaxLength="50"></TextBox>
+        
+        <TextBlock Text="Email" FontSize="20" Grid.Column="0" Grid.Row="4"></TextBlock>
+        <TextBox Name="EmailTB" FontSize="20" Grid.Column="1" Grid.Row="4" Height="50"></TextBox>
+        
+        <TextBlock Text="Телефон" FontSize="20" Grid.Column="0" Grid.Row="5"></TextBlock>
+        <TextBox Name="PhoneTB" FontSize="20" Grid.Column="1" Grid.Row="5" Height="50"></TextBox>
+        
+        <TextBlock Text="Дата рождения" FontSize="20" Grid.Column="0" Grid.Row="6"></TextBlock>
+        <DatePicker Name="BirthdayDP" FontSize="20" Grid.Column="1" Grid.Row="6" Height="50"></DatePicker>
+
+        <TextBlock Text="Пол" FontSize="20" Grid.Column="0" Grid.Row="7"></TextBlock>
+        <StackPanel Grid.Column="1" Grid.Row="7" Orientation="Vertical">
+            <RadioButton Name="MaleRB" Content="Мужской" FontSize="20" GroupName="Gender" Margin="5"></RadioButton>
+            <RadioButton Name="FemaleRB" Content="Женский" FontSize="20" GroupName="Gender" Margin="5"></RadioButton>
+        </StackPanel>
+
+        <TextBlock Text="Фото" Grid.Column="2" Grid.Row="0" FontSize="20" HorizontalAlignment="Center"></TextBlock>
+        <Image Name="PhotoImage" Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Width="100" Height="100" Stretch="UniformToFill" Margin="5"></Image>
+
+        <Button Content="Выбрать фото" Name="SelectPhotoBtn" Grid.Column="2" Grid.Row="5"
+                Click="SelectPhotoBtn_Click"></Button>
+
+        <Button Content="Сохранить" Name="SaveBtn" Grid.Column="2" Grid.Row="8" Click="SaveBtn_Click"></Button>
     </Grid>
 </Page>
